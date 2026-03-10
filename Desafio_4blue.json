@@ -1,0 +1,71 @@
+{
+  "name": "My workflow 15",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/matricula-aluno",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -464,
+        -16
+      ],
+      "id": "6663ad63-5d40-4237-84a4-7de8065c5172",
+      "name": "Webhook Matrícula",
+      "webhookId": "c0686271-1898-461b-8aa7-d515287bed1a"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const dados = item.json;\n\n  // Nome: limpar caracteres estranhos e capitalizar\n  let nome = dados.nome_completo || '';\n  nome = nome.replace(/[^a-zA-ZÀ-ÿ\\s]/g, ' ');\n  nome = nome.toLowerCase().trim();\n  nome = nome\n    .split(/\\s+/)\n    .map(p => p.charAt(0).toUpperCase() + p.slice(1))\n    .join(' ');\n\n  // Telefone: só números\n  let telefone = dados.telefone || '';\n  telefone = telefone.replace(/\\D/g, '');\n\n  // Data: DD/MM/YYYY -> YYYY-MM-DD\n  let dataBr = dados.data_nascimento || '';\n  const partes = dataBr.split('/');\n  let dataIso = null;\n  if (partes.length === 3) {\n    const [dia, mes, ano] = partes;\n    dataIso = `${ano}-${mes}-${dia}`;\n  }\n\n  // Curso: normalizar Tech/Business\n  let curso = (dados.curso || '').trim().toLowerCase();\n  if (curso === 'tech') curso = 'Tech';\n  else if (curso === 'business') curso = 'Business';\n\n  item.json = {\n    nome: nome,\n    email: dados.email,\n    data_nascimento: dataIso,\n    telefone: telefone,\n    curso: curso\n  };\n\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -16
+      ],
+      "id": "befa77fa-844e-491b-9754-891c72a56a67",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {
+    "Webhook Matrícula": [
+      {
+        "json": {
+          "nome_completo": "john smith",
+          "email": "john@4blue.com.br",
+          "data_nascimento": "28/02/2020",
+          "telefone": "(11) 99999-9999",
+          "curso": "Tech"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook Matrícula": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "44441b79-c786-4816-81d3-398fa255de0c",
+  "meta": {
+    "instanceId": "dc0bcbaed5942825d40eb7dd9dcbb6ab0108046af92a3af9d5e04ea54a24a948"
+  },
+  "id": "E9sdKJCcbqsE7VGf",
+  "tags": []
+}
