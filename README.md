@@ -101,5 +101,5 @@ Para tratar esse ponto:
 
 ## Vídeo de explicação
 
-- Link do vídeo: `https://youtu.be/yfCPCHC1AKI`
+- Link do vídeo: `https://www.youtube.com/watch?v=_AsrROVqLbA`
 
