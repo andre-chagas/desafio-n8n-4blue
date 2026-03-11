@@ -102,4 +102,5 @@ Para tratar esse ponto:
 ## Vídeo de explicação
 
 - Link do vídeo: `https://www.youtube.com/watch?v=_AsrROVqLbA`
+- O audio se encontra em um dos arquivos anexados
 
